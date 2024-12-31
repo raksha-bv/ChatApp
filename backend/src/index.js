@@ -8,15 +8,18 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
-
-app.use(express.json());
-app.use(cookieParser());
 app.use(
   cors({
     origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 const port = process.env.PORT;
 
 app.use("/api/auth", authRoutes);
